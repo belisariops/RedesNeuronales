@@ -1,36 +1,23 @@
-class Perceptron:
+from RedesNeuronales_03.AbstractNeuron import AbstractNeuron
+
+
+class Perceptron(AbstractNeuron):
+    """the Perceptron is an artificial neuron using the Heaviside step function as the activation function.
+    Attributes:
+        inputs (list(float)): values recived by the perceptron.
+        C (float): Constant value to drecrease or increase a weight of the perceptron proportional to the input, during the training phase.
+        weigths (list(float)): weights of the inputs recieved by the perceptron.
+        bias (float).
+
+    """
     def __init__(self,c):
         self.C  = c
 
-    def setWeights(self,w1,w2):
-        self.w1 = w1
-        self.w2 = w2
-
-    def setInputs(self,x1,x2):
-        self.x1 = x1
-        self.x2 = x2
-
-    def setBias(self,bias):
-        self.bias = bias
 
     def getOutput(self):
-        return (self.x1*self.w1 + self.x2*self.w2 + self.bias > 0)
-
-    def decreaseWeight(self):
-        self.w1 = self.w1 - self.C*self.x1
-        self.w2 = self.w2 - self.C*self.x2
-
-    def increaseWeight(self):
-        self.w1 = self.w1 + self.C * self.x1
-        self.w2 = self.w2 + self.C * self.x2
-
-    def train(self,x,y,output):
-        self.setInputs(x,y)
-        if not output and self.getOutput():
-            self.decreaseWeight()
-
-        if output and not self.getOutput():
-            self.increaseWeight()
-
+        output = 0
+        for i in range(len(self.inputs)):
+            output = output + self.inputs[i]*self.weights[i]
+        return output + self.bias > 0
 
 

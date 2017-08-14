@@ -1,4 +1,4 @@
-from RedesNeuronales_03.Perceptron import Perceptron
+from RedesNeuronales_02.Perceptron import Perceptron
 
 
 class OrPerceptron:

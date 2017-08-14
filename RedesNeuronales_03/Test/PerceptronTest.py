@@ -1,10 +1,10 @@
 import unittest
 
-from RedesNeuronales_03.AndPerceptron import AndPerceptron
-from RedesNeuronales_03.NandPerceptron import NandPerceptron
-from RedesNeuronales_03.OrPerceptron import OrPerceptron
+from RedesNeuronales_02.AndPerceptron import AndPerceptron
+from RedesNeuronales_02.NandPerceptron import NandPerceptron
+from RedesNeuronales_02.OrPerceptron import OrPerceptron
 
-from RedesNeuronales_01.SummingNumberGate import SummingNumberGate
+from RedesNeuronales_02.SummingNumberGate import SummingNumberGate
 
 
 class PerceptronsTest(unittest.TestCase):

@@ -1,4 +1,4 @@
-from RedesNeuronales_03.NandPerceptron import NandPerceptron
+from RedesNeuronales_02.NandPerceptron import NandPerceptron
 
 
 class SummingValue:
