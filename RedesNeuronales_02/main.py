@@ -18,7 +18,7 @@ def main ():
     iteration  = []
     count =1
     misses  = 0
-    for i in range(1000):
+    for i in range(10000):
         x = random.randint(-100,100)
         y = random.randint(-100,100)
         real_output = False

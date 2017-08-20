@@ -1,7 +1,7 @@
 import numpy
 
 
-from RedesNeuronales_03.AbstractNeuron import AbstractNeuron
+from RedesNeuronales_04.AbstractNeuron import AbstractNeuron
 
 
 class SigmoidNeuron(AbstractNeuron):
