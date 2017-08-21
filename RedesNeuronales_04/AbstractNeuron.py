@@ -16,8 +16,24 @@ class AbstractNeuron(ABC):
     def setInputs(self, *inputs):
         self.inputs = list(inputs)
 
+    def setInputsList(self,inputs):
+        self.inputs = inputs
+
+    def setWeight(self,w):
+        self.weights.append(w)
+
+    def setInput(self,i):
+        self.inputs.append(i)
+
     def setBias(self, bias):
         self.bias = bias
+
+    def setRandomWeights(self,number_of_weights, min, max):
+        self.weights = []
+        for i in range(number_of_weights):
+            self.weights.append(random.randint(min, max))
+
+
 
     @abstractmethod
     def getOutput(self):

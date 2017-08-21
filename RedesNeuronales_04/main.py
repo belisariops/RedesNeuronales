@@ -4,35 +4,17 @@ import random
 
 from RedesNeuronales_03.Perceptron import Perceptron
 from RedesNeuronales_03.SigmoidNeuron import SigmoidNeuron
+from RedesNeuronales_04.NeuralNetwork import NeuralNetwork
 
 
 def main ():
-    #Creamos el Perceptron
-    perceptron = Perceptron(0.01)
+    inputs = [1,2]
+    neural_network = NeuralNetwork(inputs)
+    neural_network.setRandomLayers(10, 3, 20)
+    neural_network.addLastLayer()
+    output = neural_network.getOutput()[0]
+    print(output)
 
-    #Funcion que se ocupa para obtener el output correcto (en este caso la recta)
-    func = lambda x,y: 2*x+3<=y
-    #Se entrena al perceptron 200 veces, con la funcion func
-    perceptron.train(1000,func)
-    #Se prueba el Perceptron con 100 iteraciones
-    perceptron.run(1000)
-    #Se grafican los resultados obtenidos en run()
-    plt = perceptron.plotResults("Perceptron","Learning Perceptron")
-
-
-    #Se crea una Sigmoid Neuron
-    sigmoid_neuron = SigmoidNeuron(0.5)
-
-    #Se entrena iterando 200 veces
-    sigmoid_neuron.train(1000,func)
-    #Se prueba la Sigmoid neuron con 100 casos
-    sigmoid_neuron.run(1000)
-    #Se grafican los resultados del entrenamiento
-    plt2=sigmoid_neuron.plotResults("Sigmoid Neuron","Learning Sigmoid Neuron")
-
-    #Se muestran los graficos de resultados del Perceptron y la Sigmoid Neuron
-    plt.show()
-    plt2.show()
 
 
 
