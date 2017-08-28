@@ -12,6 +12,7 @@ def main ():
 
     #Funcion que se ocupa para obtener el output correcto (en este caso la recta)
     func = lambda x,y: 2*x+3<=y
+    print(func(2,1))
     #Se entrena al perceptron 200 veces, con la funcion func
     perceptron.train(1000,func)
     #Se prueba el Perceptron con 100 iteraciones

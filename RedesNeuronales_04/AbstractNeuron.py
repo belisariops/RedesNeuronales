@@ -4,6 +4,9 @@ import matplotlib.pylab as plt
 import numpy as np
 
 class AbstractNeuron(ABC):
+    def __init__(self):
+        self.delta = 0
+
     def setC(self, c):
         self.C = c
 
@@ -31,13 +34,23 @@ class AbstractNeuron(ABC):
     def setRandomWeights(self,number_of_weights, min, max):
         self.weights = []
         for i in range(number_of_weights):
-            self.weights.append(random.randint(min, max))
+            self.weights.append(random.uniform(min, max))
 
 
 
     @abstractmethod
     def getOutput(self):
         pass
+
+    def setWeightInPosition(self,i,value):
+        self.weights[i] += value
+
+    def updateWeights(self):
+        for i in range (len(self.weights)):
+            self.weights[i] += (self.C * self.delta * self.inputs[i])
+
+    def updateBias(self):
+        self.bias += (self.C * self.delta)
 
     def decreaseWeight(self):
         for i in range(len(self.weights)):

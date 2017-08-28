@@ -1,7 +1,8 @@
 from RedesNeuronales_04.SigmoidNeuron import SigmoidNeuron
+from abc import ABC, abstractmethod
 
 
-class NeuralLayer:
+class AbstractNeuralLayer(ABC):
     def __init__(self, neuron_array=None):
         self.neuron_array = neuron_array
         if neuron_array is None:
@@ -18,6 +19,11 @@ class NeuralLayer:
             neuron = SigmoidNeuron(threshold)
             neuron.setRandomParameters()
             self.neuron_array.append(neuron)
+
+    def forwardPropagation(self):
+        for neuron in self.neuron_array:
+            neuron.updateWeights()
+            neuron.updateBias()
 
 
     def setPreviousLayer(self, previous_layer):
@@ -38,8 +44,11 @@ class NeuralLayer:
             return outputs
         return self.next_layer.getOutputs(outputs)
 
-
-
     def setRandomWeights(self,number_of_weights,min_value,max_value):
         for neuron in self.neuron_array:
             neuron.setRandomWeights(number_of_weights,min_value,max_value)
+
+    @abstractmethod
+    def backPropagation(self,output,expected_output):
+        pass
+
