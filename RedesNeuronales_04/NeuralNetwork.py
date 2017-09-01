@@ -78,10 +78,11 @@ class NeuralNetwork:
             input = [random.randint(0,1), random.randint(0,1)] #Some input
             output_last_layer = self.feed(input)
             expected_output = expected_function(input[0],input[1])
-            if (input[0]!= input[1]):
+            expected_output = input[0] and input[1]
+            if expected_output is True:
                 expected_output = 1
             else:
-                expected_output = 0
+                expected_output =0
             self.output_layer.backPropagation(expected_output)
 
             #error = expected_output - output_last_layer

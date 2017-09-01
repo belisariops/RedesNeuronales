@@ -17,8 +17,6 @@ class LastNeuralLayer(AbstractNeuralLayer):
         return neuron.getOutput()
 
     def forwardPropagation(self):
-        if len(self.neuron_array)>1:
-            x =2
         for neuron in self.neuron_array:
             neuron.updateWeights()
             neuron.updateBias()
