@@ -6,6 +6,9 @@ import numpy as np
 class AbstractNeuron(ABC):
     def __init__(self):
         self.delta = 0
+        self.inputs = []
+        self.bias = 1
+        self.C = 0.01
 
     def setC(self, c):
         self.C = c
@@ -19,8 +22,12 @@ class AbstractNeuron(ABC):
     def setInputs(self, *inputs):
         self.inputs = list(inputs)
 
+    def replaceInputs(self,inputs):
+        self.inputs = inputs
+
     def setInputsList(self,inputs):
         self.inputs = inputs
+
 
     def setWeight(self,w):
         self.weights.append(w)

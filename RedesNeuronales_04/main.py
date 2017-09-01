@@ -1,18 +1,14 @@
-import random
-
-
-
-from RedesNeuronales_03.Perceptron import Perceptron
-from RedesNeuronales_03.SigmoidNeuron import SigmoidNeuron
 from RedesNeuronales_04.NeuralNetwork import NeuralNetwork
 
 
 def main ():
     inputs = [20,230]
     neural_network = NeuralNetwork(inputs)
-    neural_network.setRandomLayers(10, 3, 20)
-    neural_network.addLastLayer()
-    output = neural_network.feed()[0]
+    neural_network.setRandomLayers(3, 1, 3)
+
+    neural_network.train(10000,lambda x,y: x+y>8)
+
+    output = neural_network.feed([1,1])
     print(output)
 
 

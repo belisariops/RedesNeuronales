@@ -20,10 +20,14 @@ class AbstractNeuralLayer(ABC):
             neuron.setRandomParameters()
             self.neuron_array.append(neuron)
 
+    
+
     def forwardPropagation(self):
         for neuron in self.neuron_array:
             neuron.updateWeights()
             neuron.updateBias()
+        self.next_layer.forwardPropagation()
+
 
 
     def setPreviousLayer(self, previous_layer):
@@ -35,20 +39,15 @@ class AbstractNeuralLayer(ABC):
     def getNumberofNeurons(self):
         return len(self.neuron_array)
 
+    @abstractmethod
     def getOutputs(self,inputs):
-        outputs = []
-        for neuron in self.neuron_array:
-            neuron.setInputsList(inputs)
-            outputs.append(neuron.getOutput())
-        if self.next_layer is None:
-            return outputs
-        return self.next_layer.getOutputs(outputs)
+        pass
 
     def setRandomWeights(self,number_of_weights,min_value,max_value):
         for neuron in self.neuron_array:
             neuron.setRandomWeights(number_of_weights,min_value,max_value)
 
     @abstractmethod
-    def backPropagation(self,output,expected_output):
+    def backPropagation(self,expected_output):
         pass
 
