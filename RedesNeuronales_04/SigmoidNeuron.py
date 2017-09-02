@@ -21,7 +21,7 @@ class SigmoidNeuron(AbstractNeuron):
         return self.output
 
     def setRandomParameters(self):
-        self.setC(0.01)
+        self.setC(1)
         self.setBias(random.randint(0, 10))
 
 

@@ -6,6 +6,7 @@ from RedesNeuronales_03.AbstractNeuron import AbstractNeuron
 
 class SigmoidNeuron(AbstractNeuron):
     def __init__(self,threshold):
+        
         self.setThreshold(threshold)
         self.activation_function = lambda z,threshold: (1/(1+numpy.exp(-z))) > self.threshold
 
