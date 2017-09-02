@@ -14,7 +14,8 @@ class LastNeuralLayer(AbstractNeuralLayer):
         outputs = []
         neuron = self.neuron_array[0]
         neuron.setInputsList(inputs)
-        return neuron.getOutput()
+        neuron.output = neuron.getOutput()
+        return neuron.output
 
     def forwardPropagation(self):
         if len(self.neuron_array)>1:

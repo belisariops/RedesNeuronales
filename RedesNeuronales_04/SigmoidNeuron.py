@@ -6,10 +6,9 @@ from RedesNeuronales_04.AbstractNeuron import AbstractNeuron
 
 
 class SigmoidNeuron(AbstractNeuron):
-    def __init__(self, threshold):
+    def __init__(self):
         super(SigmoidNeuron, self).__init__()
-        self.setThreshold(threshold)
-        self.activation_function = lambda z: (1.0 / (1.0 + numpy.exp(-z)))
+        self.activation_function = lambda z: (1.0 / (1.0 + numpy.exp(-1.0*z)))
         self.output = 0
         self.delta = 0
 
@@ -22,7 +21,7 @@ class SigmoidNeuron(AbstractNeuron):
         return self.output
 
     def setRandomParameters(self):
-        self.setC(0.005)
+        self.setC(0.01)
         self.setBias(random.randint(0, 10))
 
 
