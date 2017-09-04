@@ -5,17 +5,21 @@ from RedesNeuronales_04.SigmoidNeuron import SigmoidNeuron
 class LastNeuralLayer(AbstractNeuralLayer):
 
     def backPropagation(self, expected_output):
-        neuron = self.neuron_array[0]
-        error = expected_output - neuron.output
-        neuron.delta = error * (neuron.output * (1.0 - neuron.output))
+        index = 0
+        for neuron in self.neuron_array:
+            error = expected_output[index] - neuron.output
+            neuron.delta = error * self.transferDerivative(neuron.output)
+            index +=1
         self.previous_layer.backPropagation(expected_output)
 
     def getOutputs(self, inputs):
         outputs = []
-        neuron = self.neuron_array[0]
-        neuron.setInputsList(inputs)
-        neuron.output = neuron.getOutput()
-        return neuron.output
+        for neuron in self.neuron_array:
+            neuron.setInputsList(inputs)
+            neuron.output = neuron.getOutput()
+            outputs.append(neuron.output)
+
+        return outputs
 
     def forwardPropagation(self):
         for neuron in self.neuron_array:

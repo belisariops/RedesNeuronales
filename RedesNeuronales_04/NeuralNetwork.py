@@ -6,27 +6,27 @@ from RedesNeuronales_04.FirstNeuralLayer import FirstNeuralLayer
 
 
 class NeuralNetwork:
-    def __init__(self, inputs=None):
-        self.inputs = inputs
+    def __init__(self, numberOfInputs):
         self.first_layer = None
         self.output_layer = None
         self.min_neurons_per_layer = 0
         self.max_neurons_per_layer = 0
+        self.numberOfInputs = numberOfInputs
 
     def createLayer(self, neural_layer, previous_layer):
         neural_layer.buildRandomLayer(random.randint(self.min_neurons_per_layer, self.max_neurons_per_layer))
         if previous_layer is None:
             first_layer = neural_layer
-            number_weights = len(self.inputs)
+            number_weights = self.numberOfInputs
         else:
             previous_layer.setNextLayer(neural_layer)
             number_weights = previous_layer.getNumberofNeurons()
-        neural_layer.setRandomWeights(number_weights, 0, 10)
+        neural_layer.setRandomWeights(number_weights, -1, 3)
         neural_layer.setPreviousLayer(previous_layer)
         previous_layer = neural_layer
         return neural_layer
 
-    def setRandomLayers(self, number_of_layers, min_neurons_per_layer, max_neurons_per_layer):
+    def setRandomLayers(self, number_of_layers, min_neurons_per_layer, max_neurons_per_layer,number_of_outputs):
         first_layer = FirstNeuralLayer()
         neural_layer = first_layer
         self.min_neurons_per_layer = min_neurons_per_layer
@@ -38,10 +38,10 @@ class NeuralNetwork:
 
         neural_layer = LastNeuralLayer()
         # neural_layer = self.createLayer(neural_layer,previous_layer)
-        neural_layer.buildRandomLayer(1)
+        neural_layer.buildRandomLayer(number_of_outputs)
         neural_layer.setPreviousLayer(previous_layer)
         previous_layer.setNextLayer(neural_layer)
-        neural_layer.setRandomWeights(len(neural_layer.previous_layer.neuron_array), 1, 10)
+        neural_layer.setRandomWeights(len(neural_layer.previous_layer.neuron_array), -1, 3)
 
         self.output_layer = neural_layer
 
@@ -68,18 +68,23 @@ class NeuralNetwork:
             layer = layer.next_layer
         last_layer = LastNeuralLayer()
         last_layer.buildRandomLayer(1)
-        last_layer.setRandomWeights(current_layer.getNumberofNeurons(), 1, 10)
+        last_layer.setRandomWeights(current_layer.getNumberofNeurons(), -3, 3)
         current_layer.setNextLayer(last_layer)
         last_layer.setPreviousLayer(current_layer)
         self.output_layer = last_layer
 
-    def train(self, train_iterations, expected_function):
-        for i in range(train_iterations):
-            expected_output = 0  # Calcular expectedoutput
-            input = [random.randint(0, 1), random.randint(0, 1)]  # Some input
-            output_last_layer = self.feed(input)
-            expected_output = expected_function(input[0], input[1])
-            self.output_layer.backPropagation(expected_output)
+    def forwardPropagation(self):
+        self.first_layer.forwardPropagation()
+
+    def train(self, numberOfEpochs, data):
+        for i in range(numberOfEpochs):
+            for set in data:
+                input_data = set[0:self.numberOfInputs]
+                print(input_data)
+                output_last_layer = self.feed(input_data)
+                expected_output = set[-1:][0]
+                self.output_layer.backPropagation(expected_output)
+                self.forwardPropagation()
 
             # error = expected_output - output_last_layer
             # delta = error * (output_last_layer * (1.0 - output_last_layer))

@@ -10,13 +10,11 @@ class AbstractNeuralLayer(ABC):
         self.next_layer = None
         self.previous_layer = None
 
-    def buildRandomLayer(self, number_of_neurons, threshold=None):
+    def buildRandomLayer(self, number_of_neurons):
         neuron = None
-        if threshold is None:
-            threshold = 0.5
 
         for i in range(number_of_neurons):
-            neuron = SigmoidNeuron(threshold)
+            neuron = SigmoidNeuron()
             neuron.setRandomParameters()
             self.neuron_array.append(neuron)
 
@@ -27,6 +25,10 @@ class AbstractNeuralLayer(ABC):
             neuron.updateWeights()
             neuron.updateBias()
         self.next_layer.forwardPropagation()
+
+
+    def transferDerivative(self,output):
+        return output*(1.0 - output)
 
 
 
@@ -47,7 +49,12 @@ class AbstractNeuralLayer(ABC):
         for neuron in self.neuron_array:
             neuron.setRandomWeights(number_of_weights,min_value,max_value)
 
-    @abstractmethod
-    def backPropagation(self,expected_output):
-        pass
+    def calculateDelta(self,expected_output):
+        for index in range(len(self.neuron_array)):
+            error = 0
+            for next_neuron in self.next_layer.neuron_array:
+                error += next_neuron.weights[index]*next_neuron.delta
+            self.neuron_array[index].delta = error * self.transferDerivative(self.neuron_array[index].output)
+
+
 
